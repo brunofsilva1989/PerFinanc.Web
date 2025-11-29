@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Início";
+}
+
+<section class="pf-hero">
+    <div class="container pf-hero-container">
+        <div class="pf-hero-left">
+            <div class="pf-hero-badge">Novo • Controle financeiro pessoal</div>
+            <h1 class="pf-hero-title">
+                Organize seu mês com o <span>PerFinanc</span>.
+            </h1>
+            <p class="pf-hero-subtitle">
+                Saia da planilha e acompanhe todas as suas contas, receitas e gastos em um só lugar.
+                Simples, visual e pensado para o seu dia a dia.
+            </p>
+
+            <div class="pf-hero-actions">
+                <a asp-controller="Dashboard" asp-action="Index" class="pf-btn pf-btn-primary">
+                    Acessar o sistema
+                </a>
+                <a asp-controller="Home" asp-action="Sobre" class="pf-btn pf-btn-ghost">
+                    Ver mais detalhes
+                </a>
+            </div>
+
+            <div class="pf-hero-highlight">
+                <span class="pf-dot"></span>
+                <span>Substituindo sua planilha mensal com mais controle e clareza.</span>
+            </div>
+        </div>
+
+        <div class="pf-hero-right">
+            <div class="pf-hero-card">
+                <div class="pf-hero-card-header">
+                    <span class="pf-hero-card-title">Acessos rápidos</span>
+                    <span class="pf-hero-card-subtitle">Escolha por onde começar</span>
+                </div>
+                <div class="pf-menu-grid">
+                    <a asp-controller="Contas" asp-action="Index" class="pf-menu-card">
+                        <div class="pf-menu-icon">📅</div>
+                        <div class="pf-menu-title">Contas Mensais</div>
+                        <div class="pf-menu-desc">Cadastre e acompanhe suas contas fixas mês a mês.</div>
+                    </a>
+
+                    <a asp-controller="Receitas" asp-action="Index" class="pf-menu-card">
+                        <div class="pf-menu-icon">💰</div>
+                        <div class="pf-menu-title">Receitas & Freelance</div>
+                        <div class="pf-menu-desc">Controle entradas de salário, freelas e outras receitas.</div>
+                    </a>
+
+                    <a asp-controller="Gastos" asp-action="Index" class="pf-menu-card">
+                        <div class="pf-menu-icon">🧾</div>
+                        <div class="pf-menu-title">Gastos Gerais</div>
+                        <div class="pf-menu-desc">Registre despesas variáveis do dia a dia.</div>
+                    </a>
+
+                    <a asp-controller="Relatorios" asp-action="Index" class="pf-menu-card">
+                        <div class="pf-menu-icon">📊</div>
+                        <div class="pf-menu-title">Relatórios & Gráficos</div>
+                        <div class="pf-menu-desc">Visualize seu financeiro com gráficos claros.</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

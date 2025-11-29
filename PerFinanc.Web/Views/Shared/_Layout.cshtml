@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PerFinanc</title>
+
+    <!-- Favicon (coloque o arquivo em wwwroot/img/favicon-perfinanc.png) -->
+    <link rel="icon" type="image/png" href="~/img/favicon-perfinanc.png" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="pf-body">
+    <header class="pf-header">
+        <nav class="pf-navbar container">
+            <div class="pf-navbar-left">
+                <!-- Logo: quando tiver a imagem, só trocar o src -->
+                <a asp-controller="Home" asp-action="Index" class="pf-logo-link">
+                    <div class="pf-logo-icon">
+                        <div class="pf-robot-head">
+                            <span class="pf-robot-eyes"></span>
+                        </div>
+                    </div>
+                    <div class="pf-logo-text">
+                        <span class="pf-logo-title">Per<span>Financ</span></span>
+                        <span class="pf-logo-subtitle">Seu financeiro, simplificado</span>
+                    </div>
+                </a>
+            </div>
+            <div class="pf-navbar-right">
+                <a asp-controller="Home" asp-action="Index" class="pf-nav-link">Início</a>
+
+                <!-- Menus principais do financeiro -->
+                <a asp-controller="ContasFixas" asp-action="Index" class="pf-nav-link">
+                    Contas Fixas
+                </a>
+
+                <a asp-controller="LancamentosContasFixas" asp-action="Index" class="pf-nav-link">
+                    Lançamentos
+                </a>
+
+                <!-- Depois você pode criar essas páginas Sobre/Contato se quiser -->
+                <a asp-controller="Home" asp-action="Sobre" class="pf-nav-link">Sobre</a>
+                <a asp-controller="Home" asp-action="Contato" class="pf-nav-link">Contato</a>
+
+                <a asp-controller="Account" asp-action="Login" class="pf-btn pf-btn-outline">Entrar</a>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="pf-main">
+        @RenderBody()
+    </main>
+
+    <footer class="pf-footer">
+        <div class="container text-center">
+            <small>© @DateTime.Now.Year PerFinanc. Seu financeiro, simplificado.</small>
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
