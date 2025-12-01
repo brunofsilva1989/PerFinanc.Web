@@ -1,49 +1,54 @@
 ﻿@model PerFinanc.Web.Models.ContaFixa
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes Conta Fixa";
     Layout = "_Layout";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
 
-<div>
-    <h4>ContaFixa</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DiaVencimento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DiaVencimento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValorPadrao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ValorPadrao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.JaVemDescontado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.JaVemDescontado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ativo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ativo)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <!-- Título centralizado -->
+    <div class="mb-3 text-center">
+        <h1 class="h3 text-white mb-0">Detalhes da Conta Fixa</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card bg-dark border-secondary mb-3">
+                <div class="card-body">
+
+                    <dl class="row mb-0 text-white">
+                        <dt class="col-sm-5"> @Html.DisplayNameFor(m => m.Nome) </dt>
+                        <dd class="col-sm-7"> @Html.DisplayFor(m => m.Nome) </dd>
+
+                        <dt class="col-sm-5"> @Html.DisplayNameFor(m => m.DiaVencimento) </dt>
+                        <dd class="col-sm-7"> @Html.DisplayFor(m => m.DiaVencimento) </dd>
+
+                        <dt class="col-sm-5"> @Html.DisplayNameFor(m => m.ValorPadrao) </dt>
+                        <dd class="col-sm-7"> @Html.DisplayFor(m => m.ValorPadrao) </dd>
+
+                        <dt class="col-sm-5"> @Html.DisplayNameFor(m => m.JaVemDescontado) </dt>
+                        <dd class="col-sm-7"> @Html.DisplayFor(m => m.JaVemDescontado) </dd>
+
+                        <dt class="col-sm-5"> @Html.DisplayNameFor(m => m.Ativo) </dt>
+                        <dd class="col-sm-7"> @Html.DisplayFor(m => m.Ativo) </dd>
+                    </dl>
+
+                </div>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-outline-light">
+                    Voltar
+                </a>
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">
+                    Editar
+                </a>
+            </div>
+
+        </div>
+    </div>
+
 </div>
