@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Relatórios";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 text-white mb-0">Relatórios</h1>
+    </div>
+    <div class="list-group">
+        <a asp-controller="Relatorios" asp-action="DespesasMensais" class="list-group-item list-group-item-action">
+            Relatório de Despesas Mensais
+        </a>
+        <a asp-controller="Relatorios" asp-action="ReceitasMensais" class="list-group-item list-group-item-action">
+            Relatório de Receitas Mensais
+        </a>
+        <a asp-controller="Relatorios" asp-action="BalancoAnual" class="list-group-item list-group-item-action">
+            Balanço Anual
+        </a>
+    </div>
+
+</div>
+
+

@@ -36,7 +36,7 @@
                     <span class="pf-hero-card-subtitle">Escolha por onde começar</span>
                 </div>
                 <div class="pf-menu-grid">
-                    <a asp-controller="Contas" asp-action="Index" class="pf-menu-card">
+                    <a asp-controller="ContasFixas" asp-action="Index" class="pf-menu-card">
                         <div class="pf-menu-icon">📅</div>
                         <div class="pf-menu-title">Contas Mensais</div>
                         <div class="pf-menu-desc">Cadastre e acompanhe suas contas fixas mês a mês.</div>
@@ -44,11 +44,17 @@
 
                     <a asp-controller="Receitas" asp-action="Index" class="pf-menu-card">
                         <div class="pf-menu-icon">💰</div>
-                        <div class="pf-menu-title">Receitas & Freelance</div>
+                        <div class="pf-menu-title">Receitas Entrada</div>
                         <div class="pf-menu-desc">Controle entradas de salário, freelas e outras receitas.</div>
                     </a>
 
-                    <a asp-controller="Gastos" asp-action="Index" class="pf-menu-card">
+                    <a asp-controller="Freelancer" asp-action="Index" class="pf-menu-card">
+                        <div class="pf-menu-icon">💰</div>
+                        <div class="pf-menu-title">Freelancer e Outros</div>
+                        <div class="pf-menu-desc">Controle entradas de salário, freelas e outras receitas.</div>
+                    </a>
+
+                    <a asp-controller="GastosGerais" asp-action="Index" class="pf-menu-card">
                         <div class="pf-menu-icon">🧾</div>
                         <div class="pf-menu-title">Gastos Gerais</div>
                         <div class="pf-menu-desc">Registre despesas variáveis do dia a dia.</div>
