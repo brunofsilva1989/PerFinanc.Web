@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using PerFinanc.Web.Models;
 
 namespace PerFinanc.Web.Controllers
 {
+    [Authorize]
     public class ContasFixasController : Controller
     {
         private readonly PerFinancDbContext _context;
@@ -152,6 +154,6 @@ namespace PerFinanc.Web.Controllers
         private bool ContaFixaExists(int id)
         {
             return _context.ContaFixa.Any(e => e.Id == id);
-        }
+        }        
     }
 }

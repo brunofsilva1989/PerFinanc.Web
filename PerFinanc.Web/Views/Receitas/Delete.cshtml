@@ -1,46 +1,59 @@
 ﻿@model PerFinanc.Web.Models.ReceitaEntrada
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Excluir Receita entrada";
     Layout = "_Layout";
 }
 
-<h1>Delete</h1>
+<div class="container mt-4">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ReceitaEntrada</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Valor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Valor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataRecebimento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataRecebimento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categoria)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="mb-3 text-center">
+        <h1 class="h3 text-white mb-0">Excluir Conta Fixa</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark border-danger mb-3">
+
+                <div class="card-body text-white">
+
+                    <h3>Tem certeza que deseja excluir esta conta fixa?</h3>
+
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Descricao)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Descricao)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Valor)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Valor)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.DataRecebimento)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.DataRecebimento)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Categoria)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Categoria)
+                        </dd>
+                    </dl>
+                    
+                </div>
+
+            </div>
+            <form asp-action="Delete" class="d-flex justify-content-between">
+                <input type="hidden" asp-for="Id" />
+                <a asp-action="Index" class="btn btn-outline-light">Voltar</a>
+                <input type="submit" value="Excluir" class="btn btn-danger" />                 
+            </form>
+        </div>
+    </div>
 </div>

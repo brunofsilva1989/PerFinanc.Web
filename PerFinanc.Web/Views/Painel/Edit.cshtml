@@ -1,0 +1,64 @@
+﻿@model PerFinanc.Web.Models.UsuarioEditViewModel
+
+@{
+    ViewData["Title"] = "Editar usuário";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+
+            <div class="pf-auth-card">
+
+                <h3 class="pf-auth-title mb-1">Editar usuário</h3>
+                <p class="pf-auth-subtitle mb-4">
+                    Ajuste o perfil de acesso do usuário
+                </p>
+
+                <form asp-action="Edit" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Usuário</label>
+                        <input class="form-control" value="@Model.UserName" disabled />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input class="form-control" value="@Model.Email" disabled />
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="SelectedRole" class="form-label">Perfil</label>
+                        <select asp-for="SelectedRole" class="form-select">
+                            @foreach (var role in Model.AllRoles)
+                            {
+                                <option value="@role">@role</option>
+                            }
+                        </select>
+                        <span asp-validation-for="SelectedRole" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="pf-auth-btn w-100">
+                            Salvar
+                        </button>
+
+                        <a asp-action="Index" class="pf-btn pf-btn-outline w-100">
+                            Voltar
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

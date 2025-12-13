@@ -1,6 +1,13 @@
-﻿@{
-    Layout = null;
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<PerFinanc.Web.Auth.ApplicationUser> SignInManager
+
+@{
+    var isAuth = User?.Identity?.IsAuthenticated ?? false;
+    var userName = User?.Identity?.Name ?? "Usuário";
 }
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<PerFinanc.Web.Auth.ApplicationUser> SignInManager
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -33,22 +40,45 @@
                 </a>
             </div>
             <div class="pf-navbar-right">
-                <a asp-controller="Home" asp-action="Index" class="pf-nav-link">Início</a>
+                
+                @if (isAuth)
+                {
+                    <a asp-controller="Home" asp-action="Index" class="pf-nav-link">Início</a>
 
-                <!-- Menus principais do financeiro -->
-                <a asp-controller="ContasFixas" asp-action="Index" class="pf-nav-link">
-                    Contas Fixas
-                </a>
+                    <a asp-controller="Dashboard" asp-action="Index" class="pf-nav-link">
+                        Dashboard
+                    </a>
 
-                <a asp-controller="LancamentosContasFixas" asp-action="Index" class="pf-nav-link">
-                    Lançamentos
-                </a>
+                    <!-- Menus principais do financeiro -->
+                    <a asp-controller="ContasFixas" asp-action="Index" class="pf-nav-link">
+                        Contas Fixas
+                    </a>
 
-                <!-- Depois você pode criar essas páginas Sobre/Contato se quiser -->
-                <a asp-controller="Home" asp-action="Sobre" class="pf-nav-link">Sobre</a>
-                <a asp-controller="Home" asp-action="Contato" class="pf-nav-link">Contato</a>
+                    <a asp-controller="LancamentosContasFixas" asp-action="Index" class="pf-nav-link">
+                        Lançamentos
+                    </a>
 
-                <a asp-controller="Account" asp-action="Login" class="pf-btn pf-btn-outline">Entrar</a>
+                    <!-- Depois você pode criar essas páginas Sobre/Contato se quiser -->
+                    <a asp-controller="Home" asp-action="Sobre" class="pf-nav-link">Sobre</a>
+                    <a asp-controller="Home" asp-action="Contato" class="pf-nav-link">Contato</a>
+
+                }
+                
+                @if (!isAuth)
+                {
+                    <a asp-controller="Conta" asp-action="Login" class="pf-btn pf-btn-outline">Entrar</a>
+                    <a asp-controller="Conta" asp-action="Register" class="pf-btn">Criar conta</a>
+                }
+                else
+                {
+                    <span class="pf-nav-link" style="opacity:.9;">Olá, @userName</span>
+
+                    <form asp-controller="Conta" asp-action="Logout" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="pf-btn pf-btn-outline">Sair</button>
+                    </form>
+                }
+
             </div>
         </nav>
     </header>

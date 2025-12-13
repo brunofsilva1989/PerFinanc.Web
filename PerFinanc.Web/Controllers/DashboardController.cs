@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PerFinanc.Web.Data;
 
 namespace PerFinanc.Web.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly PerFinancDbContext _context;

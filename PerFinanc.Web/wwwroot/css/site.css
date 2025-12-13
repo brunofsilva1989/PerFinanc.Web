@@ -401,3 +401,61 @@
         max-width: 100%;
     }
 }
+
+/* ================================
+   LOGIN / REGISTER – PADRÃO DARK
+   ================================ */
+
+.pf-auth-card {
+    background: radial-gradient( circle at top, rgba(37, 99, 235, 0.12), var(--pf-card-bg) );
+    border-radius: 1.5rem;
+    padding: 2rem 2rem;
+    border: 1px solid var(--pf-border);
+    box-shadow: 0 25px 50px rgba(15, 23, 42, 0.75);
+    color: var(--pf-text);
+}
+
+    .pf-auth-card .form-control {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid var(--pf-border);
+        color: var(--pf-text);
+        border-radius: 0.75rem;
+        padding: 0.6rem 0.75rem;
+    }
+
+        .pf-auth-card .form-control::placeholder {
+            color: var(--pf-text-muted);
+        }
+
+        .pf-auth-card .form-control:focus {
+            background: rgba(15, 23, 42, 0.95);
+            border-color: var(--pf-primary-soft);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+            color: var(--pf-text);
+        }
+
+.pf-auth-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e5e7eb;
+}
+
+.pf-auth-subtitle {
+    font-size: 0.9rem;
+    color: var(--pf-text-muted);
+}
+
+.pf-auth-btn {
+    background: linear-gradient( to right, var(--pf-primary), var(--pf-primary-soft) );
+    border: none;
+    border-radius: 999px;
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
+}
+
+    .pf-auth-btn:hover {
+        filter: brightness(1.08);
+        transform: translateY(-1px);
+    }

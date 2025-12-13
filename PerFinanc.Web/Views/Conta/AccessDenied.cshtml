@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Acesso Negado";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="pf-auth-card mx-auto" style="max-width:520px;">
+        <h3 class="pf-auth-title mb-2 text-danger text-center">Acesso negado</h3>
+
+        <p class="pf-auth-subtitle mb-4">
+            Você está logado, mas não tem permissão para acessar esta área.
+        </p>
+                
+        <p class="pf-auth-subtitle mb-4>Se você acredita que isso é um erro, por favor, entre em contato com o administrador do sistema.</p>
+
+        <div class="d-flex gap-2">
+            <a asp-controller="Home" asp-action="Index" class="pf-btn pf-btn-outline w-100">Voltar</a>
+
+            <form asp-controller="Conta" asp-action="Logout" method="post" class="w-100">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="pf-auth-btn w-100">Sair</button>
+            </form>
+        </div>
+    </div>
+</div>

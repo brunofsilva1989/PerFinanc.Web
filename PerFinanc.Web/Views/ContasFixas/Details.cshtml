@@ -14,7 +14,6 @@
 
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
-
             <div class="card bg-dark border-secondary mb-3">
                 <div class="card-body">
 
@@ -36,19 +35,17 @@
                     </dl>
 
                 </div>
-            </div>
+                <!-- Botões de ação -->
+                <div class="d-flex justify-content-between px-4 mb-3">
+                    <a asp-action="Index" class="btn btn-outline-light">
+                        Voltar
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">
+                        Editar
+                    </a>
+                </div>
 
-            <!-- Botões de ação -->
-            <div class="d-flex justify-content-between">
-                <a asp-action="Index" class="btn btn-outline-light">
-                    Voltar
-                </a>
-                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">
-                    Editar
-                </a>
-            </div>
-
+            </div>            
         </div>
     </div>
-
 </div>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PerFinanc.Web.Models.UsuarioListItemViewModel>
+
+@{
+    ViewData["Title"] = "Painel de Controle Usuários";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 text-white mb-0">Administração de Usuários</h1>
+    </div>
+
+    <!--Tabela para mostrar usuarios-->
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover table-sm mb-0">
+            <thead>
+                <tr>                    
+                    <th>@Html.DisplayNameFor(m => m.UserName)</th>
+                    <th>@Html.DisplayNameFor(m => m.Email)</th>
+                    <th>@Html.DisplayNameFor(m => m.LockoutEnabled)</th>
+                    <th>@Html.DisplayNameFor(m => m.EmailConfirmed)</th>
+                    <th>@Html.DisplayNameFor(m => m.AccessFailedCount)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody class="align-middle">
+                @if (Model == null || !Model.Any())
+                {
+                    <div class="alert alert-info">
+                        Nenhum usuário encontrado.
+                    </div>
+                }
+                else
+                {
+                    @foreach (var usuario in Model)
+                    {
+                        <tr>                            
+                            <td>@usuario.UserName</td>
+                            <td>@usuario.Email</td>
+                            <td>@(usuario.LockoutEnabled ? "Sim" : "Não")</td>
+                            <td>@(usuario.EmailConfirmed ? "Sim" : "Não")</td>
+                            <td>@usuario.AccessFailedCount</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-sm
+                    btn-primary">Editar</a>
+                                <a asp-action="Delete" asp-route-id="@usuario.Id" class="btn btn-sm
+                        btn-danger">Excluir</a>
+                            </td>
+                        </tr>
+                    }
+                }                
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}
+
+
