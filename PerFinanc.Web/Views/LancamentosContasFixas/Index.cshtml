@@ -8,7 +8,7 @@
 @if (TempData["Mensagem"] != null)
 {
     <script>
-        Swal.fire("Sucesso!", "@TempData["Mensagem"]", "sucess");
+        Swal.fire("Sucesso!", "@TempData["Mensagem"]", "success");
     </script>
 }
 
@@ -78,9 +78,9 @@
                             @Html.DisplayFor(modelItem => item.Observacao)
                         </td>
                         <td class="text-end">
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-light me-1">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info me-1">Detalhes</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Excluir</a>
                         </td>
                     </tr>
                 }

@@ -56,7 +56,7 @@ namespace PerFinanc.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descricao,Valor,DataGasto,Categoria")] GastoGeral gastoGeral)
+        public async Task<IActionResult> Create([Bind("Id,Descricao,Valor,DataGasto,Categoria,Ano,Mes")] GastoGeral gastoGeral)
         {
             if (ModelState.IsValid)
             {

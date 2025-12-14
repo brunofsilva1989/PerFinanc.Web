@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
 </head>
 <body class="pf-body">
@@ -31,7 +32,7 @@
             <div class="pf-navbar-left">
                 <!-- Logo: quando tiver a imagem, só trocar o src -->
                 <a asp-controller="Home" asp-action="Index" class="pf-logo-link">
-                    <div class="pf-logo-icon">
+                    <div class="pf-logo-icon animate__zoomIn">
                         <div class="pf-robot-head">
                             <span class="pf-robot-eyes"></span>
                         </div>
@@ -60,6 +61,16 @@
                     <a asp-controller="LancamentosContasFixas" asp-action="Index" class="pf-nav-link">
                         Lançamentos
                     </a>
+
+                    <a asp-controller="Receitas" asp-action="Index" class="pf-nav-link">
+                        Receitas Entrada
+                    </a>
+
+                    <a asp-controller="Freelancer" asp-action="Index" class="pf-nav-link">
+                        Entrada Freelancer
+                    </a>
+
+                    
 
                     <!-- Depois você pode criar essas páginas Sobre/Contato se quiser -->
                     <a asp-controller="Home" asp-action="Sobre" class="pf-nav-link">Sobre</a>

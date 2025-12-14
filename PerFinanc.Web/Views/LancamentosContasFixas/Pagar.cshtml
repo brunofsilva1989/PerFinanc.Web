@@ -1,0 +1,75 @@
+﻿@model PerFinanc.Web.Models.LancamentoContaFixa
+
+@{
+    ViewData["Title"] = "Registrar pagamento";
+    Layout = "_Layout";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2 class="mb-1">Registrar pagamento</h2>
+            <div class="text-muted">
+                <strong>@Model.ContaFixa?.Nome</strong> • Venc: @Model.DataVencimento.ToString("dd/MM/yyyy")
+            </div>
+        </div>
+
+        <a class="btn btn-outline-secondary"
+           asp-controller="Dashboard"
+           asp-action="Index"
+           asp-route-ano="@Model.Ano"
+           asp-route-mes="@Model.Mes">
+            Voltar
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Pagar" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.Id" />
+
+                <div class="row g-3">
+                    <div class="col-12 col-md-4">
+                        <label class="form-label">Valor previsto</label>
+                        <input class="form-control" value="@Model.ValorPrevisto.ToString("0.00")" disabled />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label">Valor pago</label>
+                        <input class="form-control" name="valorPago" type="number" step="0.01" value="@(Model.ValorPago ?? 0)" />
+                        <span class="text-danger">@Html.ValidationMessage("valorPago")</span>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label">Data de pagamento</label>
+                        <input class="form-control" name="dataPagamento" type="date"
+                               value="@(Model.DataPagamento.HasValue? Model.DataPagamento.Value.ToString("yyyy-MM-dd") : "")" />
+                        <span class="text-danger">@Html.ValidationMessage("dataPagamento")</span>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Observação</label>
+                        <input class="form-control" name="observacao" value="@Model.Observacao" maxlength="200" />
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button class="btn btn-success">Salvar pagamento</button>
+
+                    <a class="btn btn-outline-secondary"
+                       asp-controller="Dashboard"
+                       asp-action="Index"
+                       asp-route-ano="@Model.Ano"
+                       asp-route-mes="@Model.Mes">
+                        Cancelar
+                    </a>
+                </div>
+
+                <div class="text-danger mt-3">
+                    @Html.ValidationSummary()
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

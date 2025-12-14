@@ -12,6 +12,13 @@
     </script>
 }
 
+@if (TempData["MensagemErro"] != null)
+{
+    <script>
+        Swal.fire("Erro!", "@TempData["MensagemErro"]", "error");
+    </script>
+}
+
 <div class="container mt-4">
 
     <div class="mb-3 text-center">
@@ -38,12 +45,7 @@
                             <label asp-for="Mes" class="control-label"></label>
                             <input asp-for="Mes" class="form-control" />
                             <span asp-validation-for="Mes" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="ValorPrevisto" class="control-label"></label>
-                            <input asp-for="ValorPrevisto" class="form-control" />
-                            <span asp-validation-for="ValorPrevisto" class="text-danger"></span>
-                        </div>
+                        </div>                        
                         <div class="mb-3">
                             <label asp-for="ValorPago" class="control-label"></label>
                             <input asp-for="ValorPago" class="form-control" />
@@ -51,7 +53,7 @@
                         </div>
                         <div class="mb-3">
                             <label asp-for="DataPagamento" class="control-label"></label>
-                            <input asp-for="DataPagamento" class="form-control" />
+                            <input asp-for="DataPagamento" type="datetime-local"  class="form-control" />
                             <span asp-validation-for="DataPagamento" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
