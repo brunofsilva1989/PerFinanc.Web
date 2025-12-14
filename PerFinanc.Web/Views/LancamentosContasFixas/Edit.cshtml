@@ -5,61 +5,80 @@
     Layout = "_Layout";
 }
 
-<h1>Edit</h1>
+@if (TempData["Mensagem"] != null)
+{
+    <script>
+        Swal.fire("Sucesso!", "@TempData["Mensagem"]", "sucess");
+    </script>
+}
 
-<h4>LancamentoContaFixa</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="ContaFixaId" class="control-label"></label>
-                <select asp-for="ContaFixaId" class="form-control" asp-items="ViewBag.ContaFixaId"></select>
-                <span asp-validation-for="ContaFixaId" class="text-danger"></span>
+<div class="container mt-4">
+
+    <div class="mb-3 text-center">
+        <h1 class="h3 text-white mb-0">Editar lançamento de contas</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card bg-dark border-secondary">
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-3">
+                            <label asp-for="ContaFixaId" class="form-label text-white"></label>
+                            <select asp-for="ContaFixaId" class="form-control" asp-items="ViewBag.ContaFixaId"></select>
+                            <span asp-validation-for="ContaFixaId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Ano" class="form-label text-white"></label>
+                            <input asp-for="Ano" class="form-control" />
+                            <span asp-validation-for="Ano" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Mes" class="form-label text-white"></label>
+                            <input asp-for="Mes" class="form-control" />
+                            <span asp-validation-for="Mes" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ValorPrevisto" class="form-label text-white"></label>
+                            <input asp-for="ValorPrevisto" class="form-control" />
+                            <span asp-validation-for="ValorPrevisto" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ValorPago" class="form-label text-white"></label>
+                            <input asp-for="ValorPago" class="form-control" />
+                            <span asp-validation-for="ValorPago" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="DataPagamento" class="form-label text-white"></label>
+                            <input asp-for="DataPagamento" class="form-control" />
+                            <span asp-validation-for="DataPagamento" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Observacao" class="form-label text-white"></label>
+                            <input asp-for="Observacao" class="form-control" />
+                            <span asp-validation-for="Observacao" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between" ">
+                            <a asp-action="Index" class="btn btn-outline-light">Voltar</a>
+                            <button type="submit" value="Save" class="btn btn-primary">
+                                Salvar
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Ano" class="control-label"></label>
-                <input asp-for="Ano" class="form-control" />
-                <span asp-validation-for="Ano" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Mes" class="control-label"></label>
-                <input asp-for="Mes" class="form-control" />
-                <span asp-validation-for="Mes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ValorPrevisto" class="control-label"></label>
-                <input asp-for="ValorPrevisto" class="form-control" />
-                <span asp-validation-for="ValorPrevisto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ValorPago" class="control-label"></label>
-                <input asp-for="ValorPago" class="form-control" />
-                <span asp-validation-for="ValorPago" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataPagamento" class="control-label"></label>
-                <input asp-for="DataPagamento" class="form-control" />
-                <span asp-validation-for="DataPagamento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Observacao" class="control-label"></label>
-                <input asp-for="Observacao" class="form-control" />
-                <span asp-validation-for="Observacao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

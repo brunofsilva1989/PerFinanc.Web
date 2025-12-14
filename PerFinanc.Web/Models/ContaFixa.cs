@@ -1,10 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PerFinanc.Web.Auth;
+using System.ComponentModel.DataAnnotations;
 
 namespace PerFinanc.Web.Models
 {
     public class ContaFixa
     {
         public int Id { get; set; }
+
+        [Required]
+        public string UserId { get; set; } = string.Empty;
 
         [Required]
         [StringLength(100)]
@@ -22,7 +26,7 @@ namespace PerFinanc.Web.Models
         public bool JaVemDescontado { get; set; }        // Para os "Já vem descontado" da planilha
 
         [Display(Name = "Ativo")]
-        public bool Ativo { get; set; } = true;
+        public bool Ativo { get; set; } = true;        
 
         // Navegação
         public ICollection<LancamentoContaFixa> Lancamentos { get; set; }

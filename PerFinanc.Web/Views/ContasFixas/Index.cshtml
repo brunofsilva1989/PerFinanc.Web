@@ -5,6 +5,13 @@
     Layout = "_Layout";
 }
 
+@if (TempData["Mensagem"] != null)
+{
+    <script>
+        Swal.fire("Sucesso!", "@TempData["Mensagem"]", "sucess");
+    </script>
+}
+
 <div class="container mt-4">
 
     <!-- Título + botão -->
@@ -26,7 +33,7 @@
                     <th>@Html.DisplayNameFor(model => model.ValorPadrao)</th>
                     <th>@Html.DisplayNameFor(model => model.JaVemDescontado)</th>
                     <th>@Html.DisplayNameFor(model => model.Ativo)</th>
-                    <th class="text-end">Ações</th>
+                    <th class="text-center">Ações</th>
                 </tr>
             </thead>
             <tbody class="align-middle">

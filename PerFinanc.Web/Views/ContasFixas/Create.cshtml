@@ -5,6 +5,13 @@
     Layout = "_Layout";
 }
 
+@if (TempData["Mensagem"] != null)
+{
+    <script>
+        Swal.fire("Sucesso!", "@TempData["Mensagem"]", "sucess");
+    </script>
+}
+
 <div class="container mt-4">
 
     <!-- Título centralizado -->
@@ -65,7 +72,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 @section Scripts {

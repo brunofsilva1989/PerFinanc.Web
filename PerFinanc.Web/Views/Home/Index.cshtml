@@ -2,6 +2,13 @@
     ViewData["Title"] = "Início";
 }
 
+@if (TempData["Mensagem"] != null)
+{
+    <script>
+        Swal.fire("Sucesso!", "@TempData["Mensagem"]", "sucess");
+    </script>
+}
+
 <section class="pf-hero">
     <div class="container pf-hero-container">
         <div class="pf-hero-left">

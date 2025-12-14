@@ -49,23 +49,41 @@ namespace PerFinanc.Web.Controllers
             ViewData["ContaFixaId"] = new SelectList(_context.ContaFixa, "Id", "Nome");
             return View();
         }
-
+        
         // POST: LancamentosContasFixas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ContaFixaId,Ano,Mes,ValorPrevisto,ValorPago,DataPagamento,Observacao")] LancamentoContaFixa lancamentoContaFixa)
+        public async Task<IActionResult> Create([Bind("Id,ContaFixaId,Ano,Mes,ValorPago,DataPagamento,Observacao")] LancamentoContaFixa lancamentoContaFixa)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(lancamentoContaFixa);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["ContaFixaId"] = new SelectList(_context.ContaFixa, "Id", "Nome", lancamentoContaFixa.ContaFixaId);
+                return View(lancamentoContaFixa);
             }
-            ViewData["ContaFixaId"] = new SelectList(_context.ContaFixa, "Id", "Nome", lancamentoContaFixa.ContaFixaId);
-            return View(lancamentoContaFixa);
+
+            // 1) Busca a ContaFixa pra pegar DiaVencimento e ValorPadrao
+            var conta = await _context.ContaFixa.FindAsync(lancamentoContaFixa.ContaFixaId);
+            if (conta == null)
+            {
+                ModelState.AddModelError(nameof(lancamentoContaFixa.ContaFixaId), "Conta fixa não encontrada.");
+                ViewData["ContaFixaId"] = new SelectList(_context.ContaFixa, "Id", "Nome", lancamentoContaFixa.ContaFixaId);
+                return View(lancamentoContaFixa);
+            }
+
+            // 2) Define ValorPrevisto baseado na ContaFixa (você pode permitir editar isso depois, se quiser)
+            lancamentoContaFixa.ValorPrevisto = conta.ValorPadrao;
+
+            // 3) Calcula DataVencimento baseado no Ano/Mes e DiaVencimento da ContaFixa
+            lancamentoContaFixa.DataVencimento = CalcularVencimento(lancamentoContaFixa.Ano, lancamentoContaFixa.Mes, conta.DiaVencimento);
+
+            // 4) Salva
+            _context.Add(lancamentoContaFixa);
+            TempData["Mensagem"] = "Registro criado com sucesso!";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
+
 
         // GET: LancamentosContasFixas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -101,6 +119,7 @@ namespace PerFinanc.Web.Controllers
                 try
                 {
                     _context.Update(lancamentoContaFixa);
+                    TempData["Mensagem"] = "Registro atualizado com sucesso!";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -151,12 +170,20 @@ namespace PerFinanc.Web.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["Mensagem"] = "Registro excluído com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 
         private bool LancamentoContaFixaExists(int id)
         {
             return _context.LancamentoContaFixa.Any(e => e.Id == id);
+        }
+
+        public static DateTime CalcularVencimento(int ano, int mes, int diaVencimento)
+        {
+            var ultimoDia = DateTime.DaysInMonth(ano, mes);
+            var dia = Math.Min(diaVencimento, ultimoDia);
+            return new DateTime(ano, mes, dia);
         }
     }
 }

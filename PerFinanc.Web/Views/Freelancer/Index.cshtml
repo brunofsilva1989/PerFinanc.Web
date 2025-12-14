@@ -5,6 +5,12 @@
     Layout = "_Layout";
 }
 
+@if (TempData["Mensagem"] != null)
+{
+    <script>
+        Swal.fire("Sucesso!", "@TempData["Mensagem"]", "sucess");
+    </script>
+}
 
 <div class="container mt-4">
 
@@ -32,7 +38,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Categoria)
                     </th>
-                    <th></th>
+                    <th class="text-center">Ações</th>
                 </tr>
             </thead>
             <tbody class="align-middle">
@@ -51,10 +57,10 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Categoria)
                         </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-light me-1">Editar</a>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info me-1">Detalhes</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                        <td class="text-end">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Detalhes</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Excluir</a>
                         </td>
                     </tr>
                 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PerFinanc.Web.Data;
 
@@ -11,9 +12,11 @@ using PerFinanc.Web.Data;
 namespace PerFinanc.Web.Migrations
 {
     [DbContext(typeof(PerFinancDbContext))]
-    partial class PerFinancDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251213212552_AddDataVencimentoUserId2")]
+    partial class AddDataVencimentoUserId2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

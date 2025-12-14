@@ -62,6 +62,7 @@ namespace PerFinanc.Web.Controllers
             {
                 _context.Add(receitaEntrada);
                 await _context.SaveChangesAsync();
+                TempData["Mensagem"] = "Registro criado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             return View(receitaEntrada);
@@ -100,6 +101,7 @@ namespace PerFinanc.Web.Controllers
                 try
                 {
                     _context.Update(receitaEntrada);
+                    TempData["Mensagem"] = "Registro atualizado com sucesso!";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -148,6 +150,7 @@ namespace PerFinanc.Web.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["Mensagem"] = "Registro excluido com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 

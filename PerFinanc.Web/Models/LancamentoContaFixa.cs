@@ -14,7 +14,11 @@ namespace PerFinanc.Web.Models
         public int Ano { get; set; }           // 2025
 
         [Range(1, 12)]
-        public int Mes { get; set; }           // 1 = Janeiro, 2 = Fevereiro...
+        public int Mes { get; set; }
+
+        [Display(Name = "Data de Vencimento")] // 1 = Janeiro, 2 = Fevereiro...
+        [DataType(DataType.Date)]
+        public DateTime DataVencimento { get; set; }  // ✅ NOVO
 
         [Display(Name = "Valor Previsto")]
         [Range(0, double.MaxValue)]

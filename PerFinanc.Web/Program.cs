@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using PerFinanc.Web.Auth;
 using PerFinanc.Web.Data;
+using PerFinanc.Web.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,13 @@ builder.Services.AddDbContext<PerFinancDbContext>(options =>
 
 builder.Services.AddDbContext<PerFinancIdentityDbContext>(options =>   
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.Configure<SmtpOtions>(builder.Configuration.GetSection("Smtp"));
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
+
+builder.Services.AddScoped<IEmailSender, IdentityEmailSender>();
+builder.Services.AddHostedService<VencimentosAlertWorker>();
+
 
 builder.Services.AddControllersWithViews(options =>
 {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PerFinanc.Web.Auth;
+using PerFinanc.Web.Email;
 
 namespace PerFinanc.Web.Controllers
 {
@@ -11,6 +12,7 @@ namespace PerFinanc.Web.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailService _emailService;
         private readonly ILogger<ContaController> _logger;
 
         public ContaController(
@@ -100,14 +102,13 @@ namespace PerFinanc.Web.Controllers
 
         // GET: /Conta/Register
         [AllowAnonymous]
-        [HttpGet]        
+        [HttpGet]
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View(new RegisterViewModel());
         }
 
-        // POST: /Conta/Register
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,48 +120,79 @@ namespace PerFinanc.Web.Controllers
                 return View(model);
 
             var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
+
             var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                _logger.LogInformation("O usuário criou uma nova conta com senha.");
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
 
-                const string defaultRole = "Viewer"; 
-
-                // garante que a role existe
-                if (!await _roleManager.RoleExistsAsync(defaultRole))
-                    await _roleManager.CreateAsync(new IdentityRole(defaultRole));
-
-                // atribui Viewer SEM depender do model
-                var addRole = await _userManager.AddToRoleAsync(user, defaultRole);
-                if (!addRole.Succeeded)
-                {
-                    foreach (var error in addRole.Errors)
-                        ModelState.AddModelError(string.Empty, error.Description);
-
-                    return View(model);
-                }
-
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                _logger.LogInformation("Usuário conectado após o registro.");
-
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                    return Redirect(returnUrl);
-
-                return RedirectToAction("Index", "Home");
+                return View(model);
             }
 
-            foreach (var error in result.Errors)
-                ModelState.AddModelError(string.Empty, error.Description);
+            _logger.LogInformation("O usuário criou uma nova conta com senha.");
 
-            return View(model);
+            // Role default
+            const string defaultRole = "Viewer";
+            if (!await _roleManager.RoleExistsAsync(defaultRole))
+                await _roleManager.CreateAsync(new IdentityRole(defaultRole));
+
+            var addRole = await _userManager.AddToRoleAsync(user, defaultRole);
+            if (!addRole.Succeeded)
+            {
+                foreach (var error in addRole.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
+
+                return View(model);
+            }
+
+            // Envia confirmação de e-mail (AGORA sim, usuário existe)
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var encoded = System.Net.WebUtility.UrlEncode(token);
+
+            var link = Url.Action("ConfirmEmail", "Auth",
+                new { userId = user.Id, token = encoded },
+                protocol: Request.Scheme);
+
+            var html = $@"
+                        <h2>Confirme seu e-mail</h2>
+                        <p>Clique no link abaixo para confirmar:</p>
+                        <p><a href='{link}'>Confirmar e-mail</a></p>";
+
+            await _emailService.SendEmailAsync(user.Email!, "Confirmação de e-mail - PerFinanc", html);
+
+            // Se você QUISER exigir e-mail confirmado, comenta o SignIn e manda pra uma tela de aviso
+            await _signInManager.SignInAsync(user, isPersistent: false);
+            _logger.LogInformation("Usuário conectado após o registro.");
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+
+            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("RegisterConfirmation", "Auth");
         }
+
 
 
         // GET: /Conta/AccessDenied
         [HttpGet]
         public async Task<IActionResult> AccessDenied()
         {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmeEmail(string userId, string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return NotFound();
+
+            var decoded = System.Web.HttpUtility.UrlDecode(token);
+            var result = await _userManager.ConfirmEmailAsync(user, decoded);
+
+            if (!result.Succeeded)
+                return BadRequest("Não foi possível confirmar o e-mail.");
+
             return View();
         }
     }

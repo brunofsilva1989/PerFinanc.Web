@@ -5,6 +5,13 @@
     Layout = "_Layout";
 }
 
+@if (TempData["Mensagem"] != null)
+{
+    <script>
+        Swal.fire("Sucesso!", "@TempData["Mensagem"]", "sucess");
+    </script>
+}
+
 <div class="container mt-4">
 
     <!-- Título -->
@@ -21,7 +28,7 @@
                     <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
 
-                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="Id" />                        
 
                         <div class="mb-3">
                             <label asp-for="Nome" class="form-label text-white"></label>

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PerFinanc.Web.Models;
 using System.Diagnostics;
@@ -36,9 +36,21 @@ namespace PerFinanc.Web.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Contato()
         {
-            return View();
+            return View(new ContatoViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Contato(ContatoViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+           
+            TempData["ContatoOk"] = "Mensagem enviada! Valeu — já já a gente te responde 😄";
+            return RedirectToAction(nameof(Contato));
         }
     }
 }

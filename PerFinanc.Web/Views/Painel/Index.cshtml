@@ -21,7 +21,7 @@
                     <th>@Html.DisplayNameFor(m => m.LockoutEnabled)</th>
                     <th>@Html.DisplayNameFor(m => m.EmailConfirmed)</th>
                     <th>@Html.DisplayNameFor(m => m.AccessFailedCount)</th>
-                    <th>Ações</th>
+                    <th class="text-center">Ações</th>
                 </tr>
             </thead>
             <tbody class="align-middle">
@@ -41,11 +41,9 @@
                             <td>@(usuario.LockoutEnabled ? "Sim" : "Não")</td>
                             <td>@(usuario.EmailConfirmed ? "Sim" : "Não")</td>
                             <td>@usuario.AccessFailedCount</td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-sm
-                    btn-primary">Editar</a>
-                                <a asp-action="Delete" asp-route-id="@usuario.Id" class="btn btn-sm
-                        btn-danger">Excluir</a>
+                            <td class="text-end">
+                                <a asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-sm btn-primary">Editar</a>
+                                <a asp-action="Delete" asp-route-id="@usuario.Id" class="btn btn-sm btn-danger">Excluir</a>
                             </td>
                         </tr>
                     }

@@ -1,49 +1,66 @@
 ﻿@model PerFinanc.Web.Models.GastoGeral
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Criar novo gasto geral";
     Layout = "_Layout";
 }
 
-<h1>Create</h1>
+@if (TempData["Mensagem"] != null)
+{
+    <script>
+        Swal.fire("Sucesso!", "@TempData["Mensagem"]", "sucess");
+    </script>
+}
 
-<h4>GastoGeral</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
+<div class="container mt-4">
+
+    <div class="mb-3 text-center">
+        <h1 class="h3 text-white mb-0">Novo Gasto Geral</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark border-secondary">
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Descricao" class="form-label text-white"></label>
+                            <input asp-for="Descricao" class="form-control" />
+                            <span asp-validation-for="Descricao" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Valor" class="form-label text-white"></label>
+                            <input asp-for="Valor" class="form-control" />
+                            <span asp-validation-for="Valor" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="DataGasto" class="form-label text-white"></label>
+                            <input asp-for="DataGasto" class="form-control" />
+                            <span asp-validation-for="DataGasto" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Categoria" class="form-label text-white"></label>
+                            <input asp-for="Categoria" class="form-control" />
+                            <span asp-validation-for="Categoria" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-light">Voltar</a>
+                            <button type="submit" value="Create" class="btn btn-primary">
+                                Salvar
+                            </button>                           
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataGasto" class="control-label"></label>
-                <input asp-for="DataGasto" class="form-control" />
-                <span asp-validation-for="DataGasto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Categoria" class="control-label"></label>
-                <input asp-for="Categoria" class="form-control" />
-                <span asp-validation-for="Categoria" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
