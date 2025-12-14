@@ -83,6 +83,10 @@ namespace PerFinanc.Web.Migrations
                     b.Property<int>("Mes")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(18,2)");
 
@@ -118,6 +122,10 @@ namespace PerFinanc.Web.Migrations
                     b.Property<int>("Mes")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(18,2)");
 
@@ -152,6 +160,10 @@ namespace PerFinanc.Web.Migrations
                     b.Property<string>("Observacao")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("ValorPago")
                         .HasColumnType("decimal(18,2)");

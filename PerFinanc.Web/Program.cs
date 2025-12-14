@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PerFinanc.Web.Auth;
 using PerFinanc.Web.Data;
 using PerFinanc.Web.Email;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +76,8 @@ builder.Services.AddAuthorization(o =>
 
 
 var app = builder.Build();
+
+RotativaConfiguration.Setup(app.Environment.WebRootPath, "Rotativa");
 
 //Injeta o Seed 
 using (var scope = app.Services.CreateScope())

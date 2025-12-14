@@ -1,0 +1,92 @@
+﻿@model PerFinanc.Web.Models.Relatorios.BalancoAnualViewModel
+@{
+    Layout = null;
+
+    var totalReceitas = Model.Linhas?.Sum(x => x.Receitas) ?? 0m;
+    var totalDespesas = Model.Linhas?.Sum(x => x.Despesas) ?? 0m;
+    var totalSaldo = totalReceitas - totalDespesas;
+}
+
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Balanço Anual</title>
+
+    <style>        
+
+        body { font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #111; }
+        .top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .title { font-size: 18px; font-weight: 700; margin: 0; }
+        .sub { margin: 4px 0 0 0; color: #444; }
+
+        .grid { display: flex; gap: 10px; margin: 12px 0 14px 0; }
+        .card { flex: 1; border: 1px solid #ddd; padding: 10px; background: #f7f7f7; }
+        .card .label { color: #555; }
+        .card .value { font-size: 14px; font-weight: 700; margin-top: 4px; }
+
+        table { width: 100%; border-collapse: collapse; }
+        thead th {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 2px solid #111;
+            background: #efefef;
+        }
+        tbody td { padding: 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+        .right { text-align: right; }
+        .muted { color: #666; }
+        .footer { margin-top: 14px; font-size: 10px; color: #666; text-align: right; }
+    </style>
+</head>
+<body>
+
+    <div class="top">
+        <div>
+            <h1 class="title">Balanço Anual</h1>
+            <p class="sub">Ano: <strong>@Model.Ano</strong></p>
+        </div>
+
+        <div class="muted">
+            Gerado em<br />
+            @DateTime.Now.ToString("dd/MM/yyyy HH:mm")
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div class="label">Total de receitas</div>
+            <div class="value">@totalReceitas.ToString("C")</div>
+        </div>
+        <div class="card">
+            <div class="label">Total de despesas</div>
+            <div class="value">@totalDespesas.ToString("C")</div>
+        </div>
+        <div class="card">
+            <div class="label">Saldo do ano</div>
+            <div class="value">@totalSaldo.ToString("C")</div>
+        </div>
+    </div>
+
+    @if (Model.Linhas == null || Model.Linhas.Count == 0)
+    {
+        <p class="muted">Nenhum dado encontrado para este ano.</p>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:60px;">Mês</th>
+                    <th class="right" style="width:140px;">Receitas</th>
+                    <th class="right" style="width:140px;">Despesas</th>
+                    <th class="right" style="width:140px;">Saldo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Linhas)
+                {
+                    <tr>
+                        <td>@item.Mes.ToString("00")</td>
+                        <td class="right">@item.Receitas.ToString("C")</td>
+                        <td class="right">@item.Despesas.ToString("C")</td>
+                        <td class="right">@item.Saldo

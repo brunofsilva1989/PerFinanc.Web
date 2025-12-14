@@ -1,0 +1,91 @@
+﻿@model PerFinanc.Web.Models.Relatorios.RelatorioMensalViewModel
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>@Model.Titulo</title>
+
+    <style>        
+
+        body { font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #111; }
+        .top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .title { font-size: 18px; font-weight: 700; margin: 0; }
+        .sub { margin: 4px 0 0 0; color: #444; }
+
+        .box { border: 1px solid #ddd; padding: 10px; background: #f7f7f7; margin-bottom: 14px; }
+        .box .label { color: #555; }
+        .box .value { font-size: 16px; font-weight: 700; margin-top: 4px; }
+
+        table { width: 100%; border-collapse: collapse; }
+        thead th {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 2px solid #111;
+            background: #efefef;
+        }
+        tbody td { padding: 8px; border-bottom: 1px solid #ddd; vertical-align: top; }
+        .right { text-align: right; }
+        .muted { color: #666; }
+        .footer { margin-top: 14px; font-size: 10px; color: #666; text-align: right; }
+    </style>
+</head>
+<body>
+
+    <div class="top">
+        <div>
+            <h1 class="title">@Model.Titulo</h1>
+            <p class="sub">Mês: <strong>@Model.Mes/@Model.Ano</strong></p>
+        </div>
+
+        <div class="muted">
+            Gerado em<br />
+            @DateTime.Now.ToString("dd/MM/yyyy HH:mm")
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="label">Total de receitas do mês</div>
+        <div class="value">@Model.Total.ToString("C")</div>
+    </div>
+
+    @if (Model.Linhas == null || Model.Linhas.Count == 0)
+    {
+        <p class="muted">Nenhuma receita encontrada para este período.</p>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:90px;">Data</th>
+                    <th>Descrição</th>
+                    <th style="width:150px;">Categoria</th>
+                    <th style="width:110px;">Tipo</th>
+                    <th class="right" style="width:110px;">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Linhas)
+                {
+                    <tr>
+                        <td>@item.Data.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Descricao</td>
+                        <td>@item.Categoria</td>
+                        <td>@item.Tipo</td>
+                        <td class="right">@item.Valor.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <div class="footer">
+        PerFinanc • @Model.Ano/@Model.Mes.ToString("00")
+    </div>
+
+</body>
+</html>

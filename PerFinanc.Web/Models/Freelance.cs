@@ -7,8 +7,11 @@ namespace PerFinanc.Web.Models
         public int Id { get; set; }
 
         [Required]
+        public string UserId { get; set; } = string.Empty;
+
+        [Required]
         [StringLength(100)]
-        public string Descricao { get; set; }
+        public string Descricao { get; set; } = string.Empty;
 
         [Display(Name = "Valor")]
         [Range(0, double.MaxValue)]
@@ -21,14 +24,12 @@ namespace PerFinanc.Web.Models
 
         [StringLength(50)]
         [Display(Name = "Categoria")]
-        public string Categoria { get; set; }
+        public string Categoria { get; set; } = string.Empty;
 
-        [Display(Name = "Ano")]
-        [DataType(DataType.Date)]
+        [Range(2000, 2100)]        
         public int Ano { get; set; }
 
-        [Display(Name = "Mês")]
-        [DataType(DataType.Date)]
+        [Range(1, 12)]        
         public int Mes { get; set; }
     }
 }

@@ -1,0 +1,95 @@
+﻿@model PerFinanc.Web.Models.Relatorios.BalancoAnualViewModel
+
+@{
+    ViewData["Title"] = "Balanço Anual";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div>
+            <h1 class="h3 text-white mb-1">Balanço Anual</h1>
+            <div class="text-muted">Ano: <strong>@Model.Ano</strong></div>
+        </div>
+
+        <form method="get" class="d-flex gap-2">
+            <input name="ano" type="number" class="form-control" style="max-width:120px" value="@Model.Ano" min="2000" />
+            <button class="btn btn-primary">Filtrar</button>
+            <a asp-action="Index" class="btn btn-outline-light">Voltar</a>
+        </form>
+    </div>
+
+    <div class="card bg-dark border-0 shadow-sm mb-3">
+        <div class="card-body">
+            <canvas id="balancoChart" height="90"></canvas>
+        </div>
+    </div>
+
+    <div class="card bg-dark border-0 shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Mês</th>
+                            <th class="text-end">Receitas</th>
+                            <th class="text-end">Despesas</th>
+                            <th class="text-end">Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Linhas)
+                        {
+                            <tr>
+                                <td>@item.Mes</td>
+                                <td class="text-end text-success fw-semibold">@item.Receitas.ToString("C")</td>
+                                <td class="text-end text-danger fw-semibold">@item.Despesas.ToString("C")</td>
+                                <td class="text-end fw-bold @(item.Saldo >= 0 ? "text-success" : "text-warning")">
+                                    @item.Saldo.ToString("C")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a class="btn btn-danger"
+           asp-controller="Relatorios"
+           asp-action="BalancoAnualPdf"
+           asp-route-ano="@Model.Ano">
+            Baixar PDF
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const labels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Linhas.Select(x => x.Mes.ToString("00"))));
+        const receitas = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Linhas.Select(x => x.Receitas)));
+        const despesas = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Linhas.Select(x => x.Despesas)));
+        const saldo = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Linhas.Select(x => x.Saldo)));
+
+        const ctx = document.getElementById('balancoChart');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [
+                    { label: 'Receitas', data: receitas, tension: 0.25 },
+                    { label: 'Despesas', data: despesas, tension: 0.25 },
+                    { label: 'Saldo', data: saldo, tension: 0.25 }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { labels: { color: '#fff' } } },
+                scales: {
+                    x: { ticks: { color: '#bbb' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+                    y: { ticks: { color: '#bbb' }, grid: { color: 'rgba(255,255,255,0.06)' } }
+                }
+            }
+        });
+    </script>
+}
