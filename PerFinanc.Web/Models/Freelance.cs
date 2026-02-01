@@ -24,12 +24,6 @@ namespace PerFinanc.Web.Models
 
         [StringLength(50)]
         [Display(Name = "Categoria")]
-        public string Categoria { get; set; } = string.Empty;
-
-        [Range(2000, 2100)]        
-        public int Ano { get; set; }
-
-        [Range(1, 12)]        
-        public int Mes { get; set; }
+        public string Categoria { get; set; } = string.Empty;        
     }
 }

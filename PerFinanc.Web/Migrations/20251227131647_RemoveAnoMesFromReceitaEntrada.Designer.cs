@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PerFinanc.Web.Data;
 
@@ -11,9 +12,11 @@ using PerFinanc.Web.Data;
 namespace PerFinanc.Web.Migrations
 {
     [DbContext(typeof(PerFinancDbContext))]
-    partial class PerFinancDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251227131647_RemoveAnoMesFromReceitaEntrada")]
+    partial class RemoveAnoMesFromReceitaEntrada
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +67,9 @@ namespace PerFinanc.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Ano")
+                        .HasColumnType("int");
+
                     b.Property<string>("Categoria")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -76,6 +82,9 @@ namespace PerFinanc.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Mes")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()

@@ -7,6 +7,7 @@ using PerFinanc.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PerFinanc.Web.Controllers
@@ -28,7 +29,7 @@ namespace PerFinanc.Web.Controllers
         }
 
         // GET: Freelancer/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Detalhes(int? id)
         {
             if (id == null)
             {
@@ -46,6 +47,7 @@ namespace PerFinanc.Web.Controllers
         }
 
         // GET: Freelancer/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -58,8 +60,15 @@ namespace PerFinanc.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descricao,Valor,DataRecebimento,Categoria")] Freelance freelance)
         {
+
+            ModelState.Remove(nameof(Freelance.UserId));
+
             if (ModelState.IsValid)
             {
+                freelance.UserId =
+                User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier)!;
+
+
                 _context.Add(freelance);
                 await _context.SaveChangesAsync();
                 TempData["Mensagem"] = "Registro criado com sucesso!";

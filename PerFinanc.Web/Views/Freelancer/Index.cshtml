@@ -37,13 +37,7 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Categoria)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Ano)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Mes)
-                    </th>
+                    </th>                    
                     <th class="text-center">Ações</th>
                 </tr>
             </thead>
@@ -62,16 +56,10 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Categoria)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ano)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Mes)
-                        </td>
+                        </td>                        
                         <td class="text-end">
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Editar</a>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Detalhes</a>
+                            <a asp-action="Detalhes" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Detalhes</a>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Excluir</a>
                         </td>
                     </tr>

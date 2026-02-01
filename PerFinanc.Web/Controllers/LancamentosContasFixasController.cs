@@ -61,15 +61,15 @@ namespace PerFinanc.Web.Controllers
             // Campos calculados no servidor (se forem [Required], isso evita ModelState inválido)
             ModelState.Remove(nameof(LancamentoContaFixa.ValorPrevisto));
             ModelState.Remove(nameof(LancamentoContaFixa.DataVencimento));
-
-            // User logado
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            ModelState.Remove(nameof(ContaFixa.UserId));
+            
             var erros = ModelState
                 .Where(x => x.Value.Errors.Count > 0)
                 .Select(x => new { Campo = x.Key, Erros = x.Value.Errors.Select(e => e.ErrorMessage).ToList() })
                 .ToList();
 
+            // User logado
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             // Se já tiver erro de validação, volta com combo filtrado
             if (!ModelState.IsValid)
@@ -78,7 +78,7 @@ namespace PerFinanc.Web.Controllers
                 TempData["MensagemErro"] = "Erro na gravação do registro";
                 return View(lancamentoContaFixa);
             }
-
+            
             // 1) Busca a ContaFixa pra pegar DiaVencimento e ValorPadrao
             var conta = await _context.ContaFixa.FirstOrDefaultAsync(c => c.Id == lancamentoContaFixa.ContaFixaId && c.UserId == userId);
             if (conta == null)

@@ -21,14 +21,6 @@ namespace PerFinanc.Web.Models
 
         [StringLength(50)]
         [Display(Name = "Categoria")]
-        public string Categoria { get; set; }
-
-        [Display(Name = "Ano")]
-        [DataType(DataType.Date)]
-        public int Ano { get; set; }
-
-        [Display(Name = "Mês")] 
-        [DataType(DataType.Date)]
-        public int Mes { get; set; } 
+        public string Categoria { get; set; }        
     }
 }

@@ -8,8 +8,7 @@ namespace PerFinanc.Web.Models
 
         [Required]
         public string UserId { get; set; } = string.Empty;
-
-        [Required]
+        
         public int ContaFixaId { get; set; }
         public ContaFixa? ContaFixa { get; set; }
 

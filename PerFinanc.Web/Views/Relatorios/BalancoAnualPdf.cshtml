@@ -89,4 +89,16 @@
                         <td>@item.Mes.ToString("00")</td>
                         <td class="right">@item.Receitas.ToString("C")</td>
                         <td class="right">@item.Despesas.ToString("C")</td>
-                        <td class="right">@item.Saldo
+                        <td class="right">@item.Saldo.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <div class="footer">
+        PerFinanc • @Model.Ano
+    </div>
+
+</body>
+</html>
