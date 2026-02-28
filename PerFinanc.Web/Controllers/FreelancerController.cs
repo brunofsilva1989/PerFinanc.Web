@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PerFinanc.Web.Data;
+using PerFinanc.Web.Enums;
 using PerFinanc.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ namespace PerFinanc.Web.Controllers
     public class FreelancerController : Controller
     {
         private readonly PerFinancDbContext _context;
+        private readonly IStepLogger _log;
 
-        public FreelancerController(PerFinancDbContext context)
+        public FreelancerController(PerFinancDbContext context, IStepLogger log)
         {
             _context = context;
+            _log = log;
         }
 
         // GET: Freelancer
@@ -60,14 +63,20 @@ namespace PerFinanc.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descricao,Valor,DataRecebimento,Categoria")] Freelance freelance)
         {
+            _log.Info("Iniciando criação de novo registro de freelance.");
 
             ModelState.Remove(nameof(Freelance.UserId));
 
+            _log.Info("Validação do modelo iniciada, removendo UserID");
+
             if (ModelState.IsValid)
             {
+                _log.Info("Modelo válido, prosseguindo com a criação do registro.");
+
                 freelance.UserId =
                 User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier)!;
 
+                _log.Info($"Atribuído UserID: {freelance.UserId} ao registro de freelance.");
 
                 _context.Add(freelance);
                 await _context.SaveChangesAsync();

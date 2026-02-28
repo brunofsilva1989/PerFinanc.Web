@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using PerFinanc.Web.Auth;
 using PerFinanc.Web.Data;
 using PerFinanc.Web.Email;
+using PerFinanc.Web.Enums;
+using PerFinanc.Web.Log;
+using PerFinanc.Web.Models;
 using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +27,9 @@ builder.Services.AddScoped<IEmailService, SmtpEmailService>();
 
 builder.Services.AddScoped<IEmailSender, IdentityEmailSender>();
 builder.Services.AddHostedService<VencimentosAlertWorker>();
+
+builder.Services.Configure<StepLogOptions>(builder.Configuration.GetSection("StepLog"));
+builder.Services.AddScoped<IStepLogger, StepLogger>();
 
 
 builder.Services.AddControllersWithViews(options =>
