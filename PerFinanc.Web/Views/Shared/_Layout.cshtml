@@ -111,3 +111,42 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<script>
+
+    (function () {
+      const input = document.getElementById('tableFilter');
+      const clearBtn = document.getElementById('clearFilter');
+      const tbody = document.getElementById('contasFixasBody');
+
+      if (!input || !tbody) return;
+
+      function normalize(s) {
+        return (s || '')
+          .toString()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase();
+      }
+
+      function applyFilter() {
+        const query = normalize(input.value.trim());
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        rows.forEach(tr => {
+          const text = normalize(tr.innerText);
+          tr.style.display = text.includes(query) ? '' : 'none';
+        });
+      }
+
+      input.addEventListener('input', applyFilter);
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          input.value = '';
+          input.focus();
+          applyFilter();
+        });
+      }
+    })();
+</script>

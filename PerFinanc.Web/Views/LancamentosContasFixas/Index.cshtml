@@ -22,10 +22,18 @@
         <a asp-action="Create" class="btn btn-primary btn-sm">
             + Novo Lançamento
         </a>
+
+        <div class="input-group" style="max-width: 420px;">
+            <span class="input-group-text">
+                <i class="bi bi-search"></i>
+            </span>
+            <input id="tableFilter" type="text" class="form-control" placeholder="Filtrar lançamentos..." />
+            <button id="clearFilter" class="btn btn-outline-secondary" type="button">Limpar</button>
+        </div>
     </div>
 
     <div class="table-responsive">
-        <table class="table table-dark table-striped table-hover table-sm mb-0">
+        <table id="contasFixasTable" class="table table-dark table-striped table-hover table-sm mb-0">
             <thead>
                 <tr>
                     <th>
@@ -52,7 +60,7 @@
                     <th class="text-center">Ações</th>
                 </tr>
             </thead>
-            <tbody class="align-middle">
+            <tbody id="contasFixasBody" class="align-middle">
                 @foreach (var item in Model)
                 {
                     <tr>

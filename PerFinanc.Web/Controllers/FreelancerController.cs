@@ -71,7 +71,7 @@ namespace PerFinanc.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                _log.Info("Modelo válido, prosseguindo com a criação do registro.");
+                _log.Info($"Modelo válido {ModelState.Values.ToString()}, prosseguindo com a criação do registro.");
 
                 freelance.UserId =
                 User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier)!;

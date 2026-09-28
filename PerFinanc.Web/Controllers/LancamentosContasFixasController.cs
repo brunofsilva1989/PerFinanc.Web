@@ -147,6 +147,18 @@ namespace PerFinanc.Web.Controllers
                 return NotFound();
             }
 
+            ModelState.Remove(nameof(LancamentoContaFixa.ValorPrevisto));
+            ModelState.Remove(nameof(LancamentoContaFixa.DataVencimento));
+            ModelState.Remove(nameof(ContaFixa.UserId));
+
+            var erros = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { Campo = x.Key, Erros = x.Value.Errors.Select(e => e.ErrorMessage).ToList() })
+                .ToList();
+
+            // User logado
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (ModelState.IsValid)
             {
                 try
